@@ -1,0 +1,20 @@
+rec.field = value
+
+
+
+  @api.model_create_multi
+    def create(self, vals_list):
+        """ Create a sequence for the student model """
+        for vals in vals_list:
+            if vals.get('number', _('New')) == _('New'):
+                vals['number'] = (self.env['ir.sequence'].
+                                  next_by_code('hospital.management.op'))
+        return super().create(vals_list)
+
+
+
+default=lambda self: _('New')
+
+
+
+
